@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+data/articles.json
+data/newsletters.json
+data/tasks.json
+output/
+frontend/generated/
+.DS_Store
+

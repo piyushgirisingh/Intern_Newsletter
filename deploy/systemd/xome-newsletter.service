@@ -1,0 +1,10 @@
+[Unit]
+Description=Generate and send the Xome Learning Brief newsletter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/xome-learning-newsletter
+ExecStart=/opt/xome-learning-newsletter/scripts/run-daily-newsletter.sh
+Environment=NODE_ENV=production

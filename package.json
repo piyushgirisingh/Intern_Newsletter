@@ -1,0 +1,33 @@
+{
+  "name": "xome-learning-newsletter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A simple daily Xome and real-estate learning newsletter pipeline for a QA engineering internship.",
+  "scripts": {
+    "dev": "tsx src/app.ts",
+    "generate": "tsx src/app.ts",
+    "automation:run": "bash scripts/run-daily-newsletter.sh",
+    "preview": "vite frontend",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "latest",
+    "@llm-newsletter-kit/core": "latest",
+    "ai": "latest",
+    "cheerio": "latest",
+    "dotenv": "^17.4.2",
+    "nodemailer": "^8.0.7",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/nodemailer": "^8.0.0",
+    "tsx": "latest",
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

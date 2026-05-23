@@ -1,0 +1,2 @@
+CRON_TZ=America/Chicago
+0 7 * * * cd /opt/xome-learning-newsletter && ./scripts/run-daily-newsletter.sh

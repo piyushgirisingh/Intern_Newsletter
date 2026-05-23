@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Xome Learning Brief</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Daily learning</p>
+        <h1>Xome Learning Brief</h1>
+      </div>
+      <div class="actions">
+        <button id="download-json" type="button">Download JSON</button>
+        <button id="download-markdown" type="button">Download notes</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="brief-meta" aria-live="polite">
+        <p id="status">Load a generated brief after running the pipeline.</p>
+      </section>
+
+      <section id="brief-list" class="brief-list"></section>
+
+      <section class="notes-panel">
+        <label for="notes">My notes</label>
+        <textarea id="notes" rows="8" placeholder="Write product questions, QA ideas, and things to ask your PM or engineering mentor."></textarea>
+        <button id="save-notes" type="button">Save to browser notes</button>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

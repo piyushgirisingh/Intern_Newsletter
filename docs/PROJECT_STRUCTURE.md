@@ -40,6 +40,9 @@ This project follows the README pipeline:
 │   └── run-daily-newsletter.sh
 └── src/
     ├── app.ts
+    ├── server.ts
+    ├── agents/
+    │   └── researchPlanner.ts
     ├── config/
     │   ├── env.ts
     │   ├── xomeNewsletterConfig.ts
@@ -64,6 +67,8 @@ This project follows the README pipeline:
             ├── deliverNewsletter.ts
             ├── gmailDelivery.ts
             └── localDelivery.ts
+├── supabase/
+│   └── schema.sql
 ```
 
 ## Delivery Recommendation
@@ -82,6 +87,8 @@ The local project does not automatically use your connected Codex Gmail account.
 Use `deploy/systemd/xome-newsletter.timer` for a Linux VPS. It runs at 7 AM Central and calls `scripts/run-daily-newsletter.sh`, which writes logs under `output/logs/`.
 
 The model does not need to run 24/7. The VPS only needs to stay online so the timer can call the model API at 7 AM.
+
+For quiz submissions, keep `xome-newsletter-app.service` running. That is the only 24/7 Node process. It serves the frontend and accepts quiz submissions.
 
 ## Your Tasks
 

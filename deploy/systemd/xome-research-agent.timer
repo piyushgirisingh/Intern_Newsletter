@@ -1,0 +1,10 @@
+[Unit]
+Description=Plan reinforcement topics for Xome Learning Brief users
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+Unit=xome-research-agent.service
+
+[Install]
+WantedBy=timers.target

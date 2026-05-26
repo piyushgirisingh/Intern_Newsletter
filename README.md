@@ -107,6 +107,14 @@ GROQ_API_KEY=your_groq_key
 LLM_MODEL=llama-3.3-70b-versatile
 ```
 
+For Kimi / Moonshot:
+
+```env
+LLM_PROVIDER=moonshot
+MOONSHOT_API_KEY=your_moonshot_key
+LLM_MODEL=kimi-k2.6
+```
+
 ## Run
 
 Generate the brief:
@@ -130,13 +138,25 @@ For full automation, run the project on your 24/7 VPS and let the server trigger
 Recommended production `.env` values:
 
 ```env
-LLM_PROVIDER=groq
-GROQ_API_KEY=your_groq_key
-LLM_MODEL=llama-3.3-70b-versatile
+LLM_PROVIDER=moonshot
+MOONSHOT_API_KEY=your_moonshot_key
+LLM_MODEL=kimi-k2.6
 NEWSLETTER_DELIVERY_MODE=gmail
 GMAIL_FROM=your_gmail@gmail.com
 GMAIL_TO=your_gmail@gmail.com
 GMAIL_APP_PASSWORD=your_google_app_password
+PUBLIC_APP_URL=https://your-vps-domain-or-ip
+NEWSLETTER_USERS=person1@example.com:Person One,person2@example.com:Person Two
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your_server_side_service_role_key
+```
+
+Before running the new user and quiz features, run `supabase/schema.sql` in the Supabase SQL editor.
+
+`NEWSLETTER_USERS` is optional. If it is empty, the app uses `GMAIL_TO`. For multiple users, use comma-separated values:
+
+```env
+NEWSLETTER_USERS=piyush@example.com:Piyush,teammate@example.com:Teammate
 ```
 
 Manual automation test:
@@ -145,7 +165,7 @@ Manual automation test:
 npm run automation:run
 ```
 
-Systemd installation on the VPS assumes this project is deployed at `/opt/xome-learning-newsletter`.
+Systemd installation on the VPS assumes this project is deployed at `/root/Intern_Newsletter`.
 
 ```bash
 sudo cp deploy/systemd/xome-newsletter.service /etc/systemd/system/
@@ -164,6 +184,34 @@ output/logs/daily-newsletter-error.log
 
 If your VPS does not support the systemd calendar timezone syntax, either set the VPS timezone to Central time or use `deploy/cron/xome-newsletter.cron`.
 
+## Quiz API
+
+The daily email links users to the frontend with `newsletterId` and `userId` in the URL. The frontend calls the Node API to submit quiz answers.
+
+Run the API manually:
+
+```bash
+npm run server
+```
+
+Install it as a 24/7 systemd service:
+
+```bash
+sudo cp deploy/systemd/xome-newsletter-app.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now xome-newsletter-app.service
+sudo systemctl status xome-newsletter-app.service --no-pager
+```
+
+Optional reinforcement planner:
+
+```bash
+sudo cp deploy/systemd/xome-research-agent.service /etc/systemd/system/
+sudo cp deploy/systemd/xome-research-agent.timer /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now xome-research-agent.timer
+```
+
 ## Your Tasks
 
 1. Install dependencies when you are ready.
@@ -172,6 +220,6 @@ If your VPS does not support the systemd calendar timezone syntax, either set th
 4. Review `src/config/xomeSources.ts` and add useful Xome pages.
 5. Run `npm run generate`.
 6. Run `npm run preview`.
-7. For VPS automation, deploy the project to `/opt/xome-learning-newsletter`.
+7. For VPS automation, deploy the project to `/root/Intern_Newsletter`.
 8. Run `npm run automation:run` once manually.
 9. Enable the systemd timer.

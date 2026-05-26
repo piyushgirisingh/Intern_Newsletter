@@ -1,10 +1,10 @@
 [Unit]
-Description=Generate and send the Xome Learning Brief newsletter
+Description=Xome Learning Brief research planner
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 Type=oneshot
 WorkingDirectory=/root/Intern_Newsletter
-ExecStart=/root/Intern_Newsletter/scripts/run-daily-newsletter.sh
+ExecStart=/usr/bin/npm run research:plan
 Environment=NODE_ENV=production

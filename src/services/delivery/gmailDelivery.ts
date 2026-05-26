@@ -2,9 +2,9 @@ import type { LearningNewsletter } from '../../models/newsletter.js';
 import { env } from '../../config/env.js';
 import nodemailer from 'nodemailer';
 
-export async function sendGmailPreview(newsletter: LearningNewsletter): Promise<void> {
+export async function sendGmailPreview(newsletter: LearningNewsletter, options: { to?: string } = {}): Promise<void> {
   const from = requiredValue('GMAIL_FROM', env.gmailFrom);
-  const to = requiredValue('GMAIL_TO', env.gmailTo);
+  const to = options.to ?? requiredValue('GMAIL_TO', env.gmailTo);
   const appPassword = requiredValue('GMAIL_APP_PASSWORD', env.gmailAppPassword);
 
   const transporter = nodemailer.createTransport({

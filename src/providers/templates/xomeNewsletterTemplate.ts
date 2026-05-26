@@ -1,10 +1,13 @@
 import type { LearningBriefItem } from '../../models/newsletter.js';
+import type { QuizQuestion } from '../../models/newsletter.js';
 
 export function renderNewsletterHtml(input: {
   title: string;
   generatedAt: string;
   items: LearningBriefItem[];
+  quiz?: QuizQuestion[];
   notesPrompt: string;
+  quizUrl?: string;
 }): string {
   const itemHtml = input.items
     .map(
@@ -34,6 +37,7 @@ export function renderNewsletterHtml(input: {
     <h1>${escapeHtml(input.title)}</h1>
     <p>Generated: ${escapeHtml(input.generatedAt)}</p>
     ${itemHtml}
+    ${renderQuizSection(input.quiz ?? [], input.quizUrl)}
     <section>
       <h2>Notes</h2>
       <p>${escapeHtml(input.notesPrompt)}</p>
@@ -41,6 +45,32 @@ export function renderNewsletterHtml(input: {
   </main>
 </body>
 </html>`;
+}
+
+function renderQuizSection(quiz: QuizQuestion[], quizUrl?: string): string {
+  if (quiz.length === 0) {
+    return '';
+  }
+
+  const questions = quiz
+    .map(
+      (question) => `<li>
+  <strong>${escapeHtml(question.questionText)}</strong>
+  <br>
+  Topic: ${escapeHtml(question.topicLabel)}
+</li>`,
+    )
+    .join('\n');
+
+  const button = quizUrl
+    ? `<p><a href="${escapeHtml(quizUrl)}">Open quiz and submit answers</a></p>`
+    : '';
+
+  return `<section>
+  <h2>Daily quiz</h2>
+  <ol>${questions}</ol>
+  ${button}
+</section>`;
 }
 
 function escapeHtml(value: string): string {

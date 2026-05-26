@@ -1,0 +1,16 @@
+[Unit]
+Description=Xome Learning Brief quiz submission API
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/Intern_Newsletter
+ExecStart=/usr/bin/npm run server
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production
+Environment=PORT=8787
+
+[Install]
+WantedBy=multi-user.target

@@ -7,4 +7,6 @@ data/tasks.json
 output/
 frontend/generated/
 .DS_Store
+supabase/
+.env.example
 

@@ -5,9 +5,9 @@ import { sendGmailPreview } from './gmailDelivery.js';
 
 export type DeliveryMode = 'local' | 'gmail';
 
-export async function deliverNewsletter(newsletter: LearningNewsletter): Promise<void> {
+export async function deliverNewsletter(newsletter: LearningNewsletter, options: { to?: string } = {}): Promise<void> {
   if (env.newsletterDeliveryMode === 'gmail') {
-    await sendGmailPreview(newsletter);
+    await sendGmailPreview(newsletter, options);
     return;
   }
 
